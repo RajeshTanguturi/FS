@@ -29,32 +29,36 @@
 
 // */
 
-// const readline = require("readline").createInterface({
-//     input: process.stdin,
-//     output: process.stdout
-//   });
+const readline = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
   
-//   function solution(products) {
-//     //Write your code here and return number
+  function solution(products) {
+    //Write your code here and return number
+    const totalRevenue = products.map(project => project.price * project.sold)
+                                .filter(revenue => revenue >= 50)
+                                .reduce((totalRevenue,revenue) => totalRevenue+revenue,0);
+    return totalRevenue;
    
-//   }
+  }
   
-//   readline.question("", (N) => {
-//     N = parseInt(N);
-//     let products = [];
-//     let count = 0;
+  readline.question("", (N) => {
+    N = parseInt(N);
+    let products = [];
+    let count = 0;
   
-//     readline.on("line", (line) => {
-//       const [name, price, sold] = line.split(" ");
-//       products.push({ name, price: parseFloat(price), sold: parseInt(sold) });
-//       count++;
+    readline.on("line", (line) => {
+      const [name, price, sold] = line.split(" ");
+      products.push({ name, price: parseFloat(price), sold: parseInt(sold) });
+      count++;
   
-//       if (count === N) {
-//         const totalRevenue = solution(products);
-//         console.log(totalRevenue);
-//         readline.close();
-//       }
-//     });
-//   });
+      if (count === N) {
+        const totalRevenue = solution(products);
+        console.log(totalRevenue);
+        readline.close();
+      }
+    });
+  });
   
   

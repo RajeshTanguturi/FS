@@ -25,33 +25,37 @@
 // Total quantity = 5 + 8 + 12 = 25
 
 // */
-// const readline = require("readline").createInterface({
-//     input: process.stdin,
-//     output: process.stdout
-//   });
+const readline = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
   
-//   function solution(products) {
-//     //Write your code here and return number
+  function solution(products) {
+    //Write your code here and return number
+    const totalQuantity = products.filter(product => product.inStock)
+                                    .map(product => product.quantity)
+                                    .reduce((totalQuantity,quantity) => totalQuantity+ quantity,0);
+    return totalQuantity;
     
-//   }
+  }
   
-//   readline.question("", (N) => {
-//     N = parseInt(N);
-//     let products = [];
-//     let count = 0;
+  readline.question("", (N) => {
+    N = parseInt(N);
+    let products = [];
+    let count = 0;
   
-//     readline.on("line", (line) => {
-//       const [name, price, quantity, inStock] = line.split(" ");
-//       products.push({ name, price: parseFloat(price), quantity: parseInt(quantity), inStock: inStock === 'true' });
-//       count++;
+    readline.on("line", (line) => {
+      const [name, price, quantity, inStock] = line.split(" ");
+      products.push({ name, price: parseFloat(price), quantity: parseInt(quantity), inStock: inStock === 'true' });
+      count++;
   
-//       if (count === N) {
-//         const totalQuantity = solution(products);
-//         console.log(totalQuantity);
-//         readline.close();
-//       }
-//     });
-//   });
+      if (count === N) {
+        const totalQuantity = solution(products);
+        console.log(totalQuantity);
+        readline.close();
+      }
+    });
+  });
   
   
   

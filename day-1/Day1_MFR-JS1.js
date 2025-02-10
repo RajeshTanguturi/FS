@@ -26,31 +26,40 @@
 // Total profit = 200 + 200 + 50 = 450
 
 // */
-// const readline = require("readline").createInterface({
-//     input: process.stdin,
-//     output: process.stdout
-//   });
+const readline = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
   
-//   function solution(projects) {
-//     //Write your code here and return number
+  function solution(projects) {
+    //Write your code here and return number
+    // const filteredProjects = projects.filter( project => project.revenue > project.cost);
+    // const profits = filteredProjects.map(project => project.revenue - project.cost);
+    // const totalProfit = profits.reduce((totalProfit, profit) => totalProfit+profit, 0);
+
+    const totalProfit = projects.filter(project => project.revenue > project.cost)
+                                .map(project => project.revenue - project.cost)
+                                .reduce((totalProfit, profit) => totalProfit+profit, 0);
+    // console.log(totalProfit);
+    return totalProfit;
     
-//   }
+  }
   
-//   readline.question("", (N) => {
-//     N = parseInt(N);
-//     let projects = [];
-//     let count = 0;
+  readline.question("", (N) => {
+    N = parseInt(N);
+    let projects = [];
+    let count = 0;
   
-//     readline.on("line", (line) => {
-//       const [name, revenue, cost] = line.split(" ");
-//       projects.push({ name, revenue: parseFloat(revenue), cost: parseFloat(cost) });
-//       count++;
+    readline.on("line", (line) => {
+      const [name, revenue, cost] = line.split(" ");
+      projects.push({ name, revenue: parseFloat(revenue), cost: parseFloat(cost) });
+      count++;
   
-//       if (count === N) {
-//         const totalProfit = solution(projects);
-//         console.log(totalProfit);
-//         readline.close();
-//       }
-//     });
-//   });
+      if (count === N) {
+        const totalProfit = solution(projects);
+        console.log(totalProfit);
+        readline.close();
+      }
+    });
+  });
   
