@@ -14,7 +14,7 @@
 // Return an array skyline_avgs of length n, where skyline_avgs[i] is the average 
 // skyline height for the neighborhood centered at index i.
 
-// Example 1:
+// Example 1: 
 // Input:
 // house_heights = [10, 15, 20, 5, 30, 25, 40]
 // visibility_mask = [1, 0, 1, 1, 0, 1, 1]
