@@ -85,7 +85,7 @@ function chooseMovie(movieList) {
     
     console.log(`Choosing a movie...`);
     setTimeout(()=>{
-        resolve(`Payment successful.`);
+        resolve(`Movie chosen: Movie A`);
     },1000);
     
   });
@@ -109,7 +109,7 @@ function makePayment() {
     // Write your logic here (e.g.,refer sample output)
     console.log(`Making payment...`);
     setTimeout(()=>{
-        resolve(`Movie chosen: Movie A`);
+        resolve(`Payment successful.`);
     },2000);
     
   });
@@ -145,14 +145,18 @@ function sendSMSConfirmation() {
 async function processBooking(userId) {
   console.log(`Starting booking process for user ID ${userId}...`);
   
-  const fetch = await fetchAvailableMovies();
-//   console.log(fetch);
-  const userd = await checkUserDetails(userId);
+  const [fetch,userd] = await Promise.all([fetchAvailableMovies(),checkUserDetails(userId)])
   console.log(userd);
+  
+//   const fetch = await fetchAvailableMovies();
+//   console.log(fetch);
+//   const userd = await checkUserDetails(userId);
+//   console.log(userd);
+
   const choose = await chooseMovie(fetch);
   console.log(choose);
   
-  const select = await selectShowtime();
+  const select = await selectShowtime(fetch);
   console.log(select);
   
   const payment = await makePayment();
@@ -166,7 +170,7 @@ async function processBooking(userId) {
   console.log(a);
   console.log(b);
   
-  // console.log(`Booking process completed for user ${userId}`)
+//   console.log(`Booking process completed for user ${userId}`)
   // Write your logic here in the following order.
 
   // First Concurrent Activities: Fetch available movies and check user details
