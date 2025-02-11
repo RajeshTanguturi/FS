@@ -60,7 +60,7 @@
 // 5. 0 <= k <= n
 
 import java.util.*;
-class solution{
+class program1{
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -73,29 +73,75 @@ class solution{
         for(int i = 0 ; i< n ; i++){
             mask[i] = sc.nextInt();
         }
+
+        //optimal code
+        // int[] skyline_avgs = new int[n];
+        // Arrays.fill(skyline_avgs, -1);
+
+        // int currSum = 0, currCount = 0;
+        
+        // for (int i = 0; i < Math.min(n, 2 * k + 1); i++) {
+        //     if (mask[i] == 1) {
+        //         currSum += houses[i];
+        //         currCount++;
+        //     }
+        // }
+
+        // if (currCount > 0 && 2 * k + 1 <= n) {
+        //     skyline_avgs[k] = currSum / currCount;
+        // }
+
+        // // Sliding window approach
+        // for (int i = k + 1; i < n - k; i++) {
+        //     if (i - k - 1 >= 0 && mask[i - k - 1] == 1) {
+        //         currSum -= houses[i - k - 1];
+        //         currCount--;
+        //     }
+        //     if (i + k < n && mask[i + k] == 1) {
+        //         currSum += houses[i + k];
+        //         currCount++;
+        //     }
+        //     if (currCount > 0) {
+        //         skyline_avgs[i] = currSum / currCount;
+        //     }
+        // }
+
+        // // Print result
+        // System.out.println(Arrays.toString(skyline_avgs));
+
+        //sliding window not so optimal - extra space 
         List<Integer> savg = new ArrayList<>();
+        List<Integer> curr = new ArrayList<>();
         int currSum =0;
-        for( int i = 0 ; i < k ; i++ ){
-            savg.add(-1);
+        for( int i = 0 ; i < 2*k+1 ; i++ ){
+            if( i < k){
+                savg.add(-1);
+            }
             if(mask[i] == 1){
+                curr.add(houses[i]);
                 currSum += houses[i];
             }
         }
-        int sumstart = 0;
-        int start = k;
-        for( int i = k ; i< n-k ; i++ ){
-            if(mask[i] == 1){
-                currSum += houses[i];
+        System.out.println(curr+" "+ currSum);
+        savg.add(currSum/curr.size()); 
+
+        for (int i = k+1; i < n-k; i++) {
+            if(mask[i+k] == 1){
+                curr.add(houses[i+k]);
+                currSum += houses[i+k];
             }
-            if( i - k == start){
-                savg.add(currSum/(k+k+1));
-                currSum -= houses[sumstart];
-                start++;
-                sumstart++;
+            if(mask[i-k-1] == 1){
+                currSum -= curr.get(0);
+                curr.remove(0);
             }
+            savg.add(currSum/curr.size()); 
+            // System.out.println(curr+" "+ currSum);
+
         }
         for(int i = n-k ; i< n ; i++){
             savg.add(-1);
+        // System.out.println(curr+" "+ currSum);
+
         }
         System.out.println(savg);
     }
