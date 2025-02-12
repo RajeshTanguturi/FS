@@ -74,7 +74,7 @@ class program1{
             mask[i] = sc.nextInt();
         }
 
-        //optimal code
+        // optimal code
         // int[] skyline_avgs = new int[n];
         // Arrays.fill(skyline_avgs, -1);
 

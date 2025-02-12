@@ -82,7 +82,7 @@ class solution{
         }
         for ( int i = 1 ; i < k ; i++){
             pq.poll();
-        }
+        }-
         System.out.println(pq.poll());
         
     }
