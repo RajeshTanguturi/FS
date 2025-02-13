@@ -1,6 +1,4 @@
 /*
- 
- 
 Construct Tree from the given Level-order and In-order.
 Compute the Depth and Sum of the Deepest nodes in the Binary tree
 
@@ -95,6 +93,20 @@ public class program4 {
         System.out.println(root.val);
         inorder(root.right);
     }
+    public static void preorder(Node root,int[] ans,int level){
+        if( root == null){
+            return;
+        }
+        if(level > ans[0]){
+            ans[0] = level;
+            ans[1]=root.val;
+        }
+        else if( level == ans[0]){
+            ans[1] +=root.val;
+        }
+        preorder(root.left, ans, level+1);
+        preorder(root.right, ans, level+1);
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -113,7 +125,10 @@ public class program4 {
         }
         
         Node root = buildTree(inorder,inorderMap,levelorderMap,0,n-1,levelorder[0]);
-        inorder(root);
+        int a[] = {-1,0};
+
+        preorder(root,a,1);
+
 
     }
 }
