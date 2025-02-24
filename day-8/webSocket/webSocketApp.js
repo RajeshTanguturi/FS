@@ -60,19 +60,23 @@ wss.on('connection',(ws)=>{
 		const command = message.toString();
 		const arr = command.split(" ");
 		if( arr[0] === "INSERT" && arr.length ===3 ){
-			console.log('Insert');
+			// console.log('Insert');
 			const name = arr[1];
 			const salary = parseInt(arr[2]);
-			database.push([{id:idcount++ ,name:name, salary:salary }]);
-			ws.send('Employee inserted successfully.')
+			database.push({id:idcount++ ,name:name, salary:salary });
+			// console.log(database);
+			ws.send('Employee inserted successfully.');
 		}
 		else if( arr[0] === "RETRIEVE" ){
-			console.log('retrive');
+			if( database.length === 0){
+				ws.send('no employees found')
+			}
+			// console.log('retrive');
 			database.forEach((data)=>{
-				ws.send(`ID: 1, Name: Alice, Salary: 30000`);
+				ws.send(`ID: ${data.id}, Name: ${data.name}, Salary: ${data.salary}`);
 			})
 		}else{
-			ws.send('Invalid command.')
+			ws.send('Invalid command.');
 		}
 	})
 })
