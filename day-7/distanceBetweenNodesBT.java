@@ -80,7 +80,6 @@ class solution {
         if (paths(root.left, ans, target) || paths(root.right, ans, target)) {
             return true;
         }
-        // System.out.println(root.data+ " "+ ans);
         ans.remove(ans.size() - 1);
         return false;
 
