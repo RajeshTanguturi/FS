@@ -44,27 +44,31 @@ so it cannot be a valid path.
 
  */
 
- import java.util.*;
-class TreeNode{
+import java.util.*;
+
+class TreeNode {
     TreeNode right;
     TreeNode left;
     int data;
+
     TreeNode(int data) {
         this.data = data;
     }
 
 }
-class solution{
-    public static TreeNode buildTree(int[] nodes){
+
+class validPath {
+    public static TreeNode buildTree(int[] nodes) {
         TreeNode root = new TreeNode(nodes[0]);
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
         int idx = 1;
-        while (!q.isEmpty()){
+        while (!q.isEmpty()) {
             TreeNode n = q.poll();
             if (idx < nodes.length && nodes[idx] != -1) {
                 n.left = new TreeNode(nodes[idx]);
                 q.add(n.left);
+
             }
             idx++;
             if (idx < nodes.length && nodes[idx] != -1) {
@@ -74,35 +78,45 @@ class solution{
             idx++;
         }
         return root;
-    
 
     }
-    public static boolean  bt(TreeNode root,List<Integer> curr,int[] paths){
-        if( root == null ) return false;
-        curr.add(root.data);
-        if(root.left == null && root.right == null){
-            if(curr.size() != paths.length ){ 
-                curr.remove(curr.size()-1);
-                return false;
-            }
-            else {
-                boolean flag = true;
-                for( int i = 0; i< paths.length ; i++){
-                    if(curr.get(i) != paths[i]){
-                        flag = false;
-                        break;
-                    }
-                }
-                curr.remove(curr.size()-1);
-                return flag;
-            }
-        }
-        boolean left = bt(root.left,curr,paths);
-        boolean right = bt(root.right, curr,paths);
-        curr.remove(curr.size() - 1 );
-        return left || right;
+
+    // backtracking brute force
+    // public static boolean bt(TreeNode root, List<Integer> curr, int[] paths) {
+    // if (root == null)
+    // return false;
+    // curr.add(root.data);
+    // if (root.left == null && root.right == null) {
+    // if (curr.size() != paths.length) {
+    // curr.remove(curr.size() - 1);
+    // return false;
+    // } else {
+    // boolean flag = true;
+    // for (int i = 0; i < paths.length; i++) {
+    // if (curr.get(i) != paths[i]) {
+    // flag = false;
+    // break;
+    // }
+    // }
+    // curr.remove(curr.size() - 1);
+    // return flag;
+    // }
+    // }
+    // boolean left = bt(root.left, curr, paths);
+    // boolean right = bt(root.right, curr, paths);
+    // curr.remove(curr.size() - 1);
+    // return left || right;
+    // }
+
+    public static boolean bt(TreeNode root, int[] path, int idx) {
+        if ( root == null || idx == path.length ||  root.data != path[idx])
+            return false;
+        if (root.left == null && root.right == null && idx == path.length - 1)
+            return true;
+        return bt(root.left, path, idx + 1) || bt(root.right, path, idx + 1);
     }
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         String path = sc.nextLine();
@@ -118,11 +132,10 @@ class solution{
         }
         TreeNode root = buildTree(nodes);
         // List<List<Integer>> ans = new ArrayList<>();
-        System.out.println(bt(root,new ArrayList<>(),paths));
+        System.out.println(bt(root, paths, 0));
         // System.out.println(
         // System.out.print(path);
-    
 
-}
+    }
 
 }
