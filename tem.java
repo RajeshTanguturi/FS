@@ -1,82 +1,36 @@
-import java.util.*;
+public class tem {
 
-class Node{
-    Node next;
-    int val;
-    Node(int val){
-        this.val = val;
-        this.next = null;
-    }
-}
-class tem{
-    public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        String ips[] = input.split("\\s+");
-        System.out.println(Arrays.toString(ips));
-        int arr[] = new int[ips.length];
-        for( int i = 0 ; i<ips.length ; i++){
-            arr[i] = Integer.parseInt(ips[i]);
-        }
-        Node head = new Node(arr[0]);
-        Node prev = head;
-        for( int i = 1 ; i<arr.length ; i++){
-            Node curr = new Node(arr[i]);
-            prev.next = curr;
-            prev = curr;
-        }
-        System.out.println(
-        isPalindrome(head));
-        // Node temp = head;
-        // while(temp!=null){
-        //     System.out.println(temp.val);
-        //     temp = temp.next;
-        // }
-        // head = reverse(head);
-        // System.err.println("reverse");
-        // while(head!=null){
-        //     System.out.println(head.val);
-        //     head = head.next;
-        // }
-    }
-    public static void printll(Node head){
-        while(head!=null){
-            System.out.print(head.val +"->");
-            head = head.next;
-        }
-    }
-    public static  boolean isPalindrome(Node head) {
-        Node fast = head;
-        Node slow = head;
-        while (fast !=null && fast.next != null ) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        if(fast!= null) slow = slow.next;
-        printll(slow);
-        slow = reverse(slow);
-        System.out.println();
-        printll(slow);
+    public static void main(String[] args) {
+        String s = "nn99qbttxpse";
+        int n = s.length();
 
-        while(slow!=null){
-            if (slow.val != head.val) {
-                return false;
+        int ans = 0;
+        int count = 1;
+        int i = 0;
+        for (i = 0; i < n - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                count++;
+            } else {
+                if (count > 1) {
+                    ans += sum(count);
+                    count = 1;
+                } else {
+                    ans++;
+                }
             }
-            slow = slow.next;
-            head = head.next;
+            System.out.println("i: " + i + " ans: " + ans + " count: " + count);
         }
-        return true;
+        if(count > 1) {
+            ans += sum(count);
+            count = 1;
+        }else {
+            ans++;
+        }
 
+        System.out.println(ans);
     }
-    public static Node reverse(Node head) {
-        Node prev= null;
-        Node curr = head;
-        while (curr!=null) {
-            Node nxt = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nxt;
-        }
-        return prev;
+
+    public static int sum(int n) {
+        return (n * (n + 1)) / 2;
     }
 }

@@ -21,6 +21,7 @@ Output:
 
 Explanation:
 
+
 For plots 0 to 2: [1,2,3] → 3 unique colors
 For plots 1 to 3: [2,3,2] → 2 unique colors
 For plots 2 to 4: [3,2,2] → 2 unique colors
