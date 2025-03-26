@@ -35,3 +35,14 @@
 // Example 3:
 // Input = 2[abc]3[cd]ef
 // Output = abcabccdcdcdef
+
+public class decode_Strings {
+
+    public static void main(String[] args) {
+        String str = "Hello";
+
+        str.concat(", World!");
+        
+        System.out.println(str);;
+    }
+}
